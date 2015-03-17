@@ -146,6 +146,12 @@ public class JsonMojo extends AbstractFabric8Mojo {
     private String kubernetesContainerName;
 
     /**
+     * The namespace label used in the generated Kubernetes JSON template
+     */
+    @Parameter(property = "fabric8.kubernetes.namespace", defaultValue = "default")
+    private String kubernetesNamespace;
+
+    /**
      * The service name
      */
     @Parameter(property = "fabric8.service.name", defaultValue = "${project.artifactId}-service")
@@ -243,6 +249,7 @@ public class JsonMojo extends AbstractFabric8Mojo {
             }
             Map<String, String> labelMap = getLabels();
             String name = getKubernetesName();
+            String namespace = getKubernetesNamespace();
             if (labelMap.isEmpty() && Strings.isNotBlank(name)) {
                 // lets add a default label
                 labelMap.put("component", name);
@@ -251,6 +258,7 @@ public class JsonMojo extends AbstractFabric8Mojo {
             config.setTemplateVariables(variables);
             config.setPorts(getPorts());
             config.setName(name);
+            config.setNamespace(namespace);
             config.setContainerName(getKubernetesContainerName());
             config.setEnvironmentVariables(getEnvironmentVariables());
             String pullPolicy = getImagePullPolicy();
@@ -324,6 +332,14 @@ public class JsonMojo extends AbstractFabric8Mojo {
 
     public void setKubernetesName(String kubernetesName) {
         this.kubernetesName = kubernetesName;
+    }
+
+    public String getKubernetesNamespace() {
+        return kubernetesNamespace;
+    }
+
+    public void setKubernetesNamespace(String kubernetesNamespace) {
+        this.kubernetesNamespace = kubernetesNamespace;
     }
 
     public Map<String, Integer> getDefaultContainerPortMap() {

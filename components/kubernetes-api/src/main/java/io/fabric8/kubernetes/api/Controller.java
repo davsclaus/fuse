@@ -260,7 +260,10 @@ public class Controller {
     }
 
     public void applyService(Service serviceSchema, String sourceName) {
-        String namespace = getNamespace();
+        String namespace = serviceSchema.getNamespace();
+        if (namespace == null) {
+            namespace = getNamespace();
+        }
         if (serviceMap == null) {
             serviceMap = getServiceMap(kubernetes, namespace);
         }
@@ -291,7 +294,10 @@ public class Controller {
     }
 
     public void applyReplicationController(ReplicationController replicationController, String sourceName) {
-        String namespace = getNamespace();
+        String namespace = replicationController.getNamespace();
+        if (namespace == null) {
+            namespace = getNamespace();
+        }
         if (replicationControllerMap == null) {
             replicationControllerMap = getReplicationControllerMap(kubernetes, namespace);
         }
@@ -322,7 +328,10 @@ public class Controller {
     }
 
     public void applyPod(Pod pod, String sourceName) {
-        String namespace = getNamespace();
+        String namespace = pod.getNamespace();
+        if (namespace == null) {
+            namespace = getNamespace();
+        }
         if (podMap == null) {
             podMap = getPodMap(kubernetes, namespace);
         }

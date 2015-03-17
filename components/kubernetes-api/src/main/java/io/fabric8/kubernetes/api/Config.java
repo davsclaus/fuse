@@ -25,6 +25,7 @@ public class Config {
     private String id;
     private String apiVersion;
     private String kind;
+    private String namespace;
     private String name;
     private String description;
     private List<Object> items;
@@ -75,5 +76,13 @@ public class Config {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 }

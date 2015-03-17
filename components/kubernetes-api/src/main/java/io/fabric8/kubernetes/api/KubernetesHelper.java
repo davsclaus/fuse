@@ -256,8 +256,11 @@ public class KubernetesHelper {
             return objectMapper.reader(DeploymentConfig.class).readValue(json);
         } else if (Objects.equal("ImageRepository", kind)) {
             return objectMapper.reader(ImageRepository.class).readValue(json);
-        } else if (Objects.equal("Config", kind) || Objects.equal("List", kind)) {
-            return loadList(json);
+        } else if (Objects.equal("Config", kind)) {
+            Config config = objectMapper.reader(Config.class).readValue(json);
+            return loadList(config, json);
+        } else if (Objects.equal("List", kind)) {
+            return loadList(null, json);
 /*
         } else if (Objects.equal("Template", kind)) {
             return objectMapper.reader(Template.class).readValue(json);
@@ -267,8 +270,10 @@ public class KubernetesHelper {
         }
     }
 
-    protected static Config loadList(byte[] data) throws IOException {
-        Config config = new Config();
+    protected static Config loadList(Config config, byte[] data) throws IOException {
+        if (config == null) {
+            config = new Config();
+        }
         List<Object> itemList = new ArrayList<>();
         config.setItems(itemList);
         JsonNode jsonNode = objectMapper.readTree(data);

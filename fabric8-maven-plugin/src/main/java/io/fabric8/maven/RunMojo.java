@@ -15,17 +15,18 @@
  */
 package io.fabric8.maven;
 
-import io.fabric8.utils.Files;
+import java.io.File;
+import java.io.IOException;
+
+import io.fabric8.kubernetes.api.Config;
 import io.fabric8.kubernetes.api.Controller;
 import io.fabric8.kubernetes.api.KubernetesClient;
 import io.fabric8.kubernetes.api.KubernetesHelper;
+import io.fabric8.utils.Files;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Deploys the App to a kubernetes environment

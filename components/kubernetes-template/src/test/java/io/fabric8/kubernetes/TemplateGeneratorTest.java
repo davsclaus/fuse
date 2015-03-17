@@ -167,11 +167,10 @@ public class TemplateGeneratorTest {
 
     protected List<Object> generateTemplateAndLoadEntities(File jsonFile) throws IOException {
         String json = IOHelpers.readFully(jsonFile);
-        LOG.info("Generated: " + json);
+        LOG.info("Generated:\n" + json);
 
         Object loadedDTO = KubernetesHelper.loadJson(json);
-        LOG.info("Loaded json DTO: " + loadedDTO);
-
+        LOG.info("Loaded json DTO:\n" + loadedDTO);
 
         assertThat(loadedDTO).describedAs("loaded DTO").isNotNull().isInstanceOf(Config.class);
         Config config = (Config) loadedDTO;
@@ -183,6 +182,7 @@ public class TemplateGeneratorTest {
 
         CreateAppDTO dto = new CreateAppDTO();
         dto.setName(name);
+        dto.setNamespace("default");
         dto.setReplicationControllerName("my-controller");
         dto.setDockerImage("fabric8/hawtio");
         dto.setReplicaCount(replicaCount);

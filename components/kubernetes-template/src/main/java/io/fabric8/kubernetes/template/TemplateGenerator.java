@@ -40,6 +40,7 @@ import static io.fabric8.kubernetes.api.KubernetesHelper.validateKubernetesId;
 public class TemplateGenerator {
     public static final String DEFAULT_TEMPLATE = "io/fabric8/templates/default.mvel";
     public static final String DOCKER_DATA_IMAGE = "docker_image";
+    public static final String DEFAULT_NAMESPACE = "default";
 
     private final GenerateTemplateDTO config;
     private final List<ClassLoader> classLoaders;
@@ -80,6 +81,11 @@ public class TemplateGenerator {
             Objects.notNull(variables.get(DOCKER_DATA_IMAGE), "no docker.image property specified!");
             String name = config.getName();
             addIfNotDefined(variables, "name", name);
+            String namespace = config.getNamespace();
+            if (namespace == null) {
+                namespace = DEFAULT_NAMESPACE;
+            }
+            addIfNotDefined(variables, "namespace", namespace);
             addIfNotDefined(variables, "containerName", config.getContainerName());
             Map<String, String> labels = config.getLabels();
             variables.put("labels", labels);

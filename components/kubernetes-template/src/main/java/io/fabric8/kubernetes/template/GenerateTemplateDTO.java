@@ -29,6 +29,7 @@ import java.util.Map;
  */
 public class GenerateTemplateDTO {
     protected String name;
+    protected String namespace;
     protected String dockerImage;
     private String imagePullPolicy;
     protected String containerName;
@@ -90,6 +91,14 @@ public class GenerateTemplateDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 
     public Integer getReplicaCount() {
